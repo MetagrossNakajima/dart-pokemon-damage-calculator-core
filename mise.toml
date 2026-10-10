@@ -1,0 +1,56 @@
+[tools]
+dart = "3.13.4"
+
+[tasks.setup]
+description = "ロックファイルに従って依存パッケージを取得"
+run = "dart pub get --enforce-lockfile"
+
+[tasks.format]
+description = "Dartコードを整形"
+run = "dart format lib test tool example"
+
+[tasks."format:check"]
+description = "Dartコードの整形を検証"
+run = "dart format --output=none --set-exit-if-changed lib test tool example"
+
+[tasks.analyze]
+description = "静的解析を実行"
+run = "dart analyze --fatal-infos"
+
+[tasks.test]
+description = "全テストを実行"
+run = "dart test"
+
+[tasks.coverage]
+description = "行・VM分岐カバレッジを収集し、lib/の100%を検証"
+run = [
+  "dart run coverage:test_with_coverage --branch-coverage",
+  "dart run tool/check_coverage.dart coverage/coverage.json",
+]
+
+[tasks."ids:generate"]
+description = "ID定義を生成"
+run = "dart run tool/generate_ids.dart"
+
+[tasks."ids:check"]
+description = "ID定義が最新か検証"
+run = "dart run tool/generate_ids.dart --check"
+
+[tasks.example]
+description = "単発技と連続技の実行例を確認"
+run = ["dart run example/main.dart", "dart run example/multi_hit.dart"]
+
+[tasks.benchmark]
+description = "ダメージ計算のベンチマークを実行"
+run = "dart run tool/benchmark.dart single"
+
+[tasks.check]
+description = "依存取得・整形・ID・静的解析・カバレッジ・実行例を順に検証"
+run = [
+  { task = "setup" },
+  { task = "format:check" },
+  { task = "ids:check" },
+  { task = "analyze" },
+  { task = "coverage" },
+  { task = "example" },
+]

@@ -1,0 +1,27 @@
+import 'validation.dart';
+
+part 'value_objects/value.dart';
+part 'value_objects/pokemon_id.dart';
+part 'value_objects/move_id.dart';
+part 'value_objects/ability_id.dart';
+part 'value_objects/item_id.dart';
+part 'value_objects/stat_value.dart';
+part 'value_objects/stat_stage.dart';
+part 'value_objects/pokemon_weight.dart';
+part 'value_objects/current_hp.dart';
+part 'value_objects/fainted_allies.dart';
+part 'value_objects/times_hit.dart';
+part 'value_objects/toxic_counter.dart';
+part 'value_objects/cud_chew_turn.dart';
+part 'value_objects/move_power.dart';
+part 'value_objects/accuracy_percent.dart';
+part 'value_objects/move_priority.dart';
+part 'value_objects/turn_number.dart';
+part 'value_objects/spikes_layers.dart';
+part 'value_objects/operation_limit.dart';
+part 'value_objects/state_limit.dart';
+part 'value_objects/damage_amount.dart';
+part 'value_objects/distribution_weight.dart';
+part 'value_objects/pokemon_type.dart';
+part 'value_objects/tera_type.dart';
+part 'value_objects/terrain.dart';

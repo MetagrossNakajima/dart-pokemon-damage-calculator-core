@@ -1,0 +1,9 @@
+nuxt
+.agents/
+.testagent/
+AGENTS.md
+skills-lock.json
+.dart_tool/
+.dart-sdk/
+coverage/
+build/
