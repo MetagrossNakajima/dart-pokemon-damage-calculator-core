@@ -18,6 +18,13 @@ void main() {
     // Lv50、HP200、その他の実数値100、両者ノーマルタイプで16乱数を取得。
     final cases = [
       (
+        name: 'Eelevate',
+        condition: '地面技',
+        ability: 'Eelevate',
+        move: effects.m(id: 'Earthquake', type: 'Ground', power: 100),
+        rolls: [39, 39, 40, 40, 40, 41, 41, 42, 42, 43, 43, 44, 44, 45, 45, 46],
+      ),
+      (
         name: 'こんがりボディ',
         condition: '炎技',
         ability: 'WellBakedBody',
@@ -119,6 +126,56 @@ void main() {
         );
       });
     }
+
+    test(
+      'Eelevate grounding overrides and Thousand Arrows allow ground damage',
+      () {
+        for (final c in [
+          (item: null, gravity: true, id: 'Earthquake'),
+          (item: 'IronBall', gravity: false, id: 'Earthquake'),
+          (item: null, gravity: false, id: 'ThousandArrows'),
+        ]) {
+          expect(
+            effects
+                .hit(
+                  d: effects.p(ability: 'Eelevate', item: c.item),
+                  move: effects.m(id: c.id, type: 'Ground', power: 100),
+                  field: effects.f(gravity: c.gravity),
+                )
+                .rolls,
+            [39, 39, 40, 40, 40, 41, 41, 42, 42, 43, 43, 44, 44, 45, 45, 46],
+          );
+        }
+      },
+    );
+
+    test(
+      'Eelevate avoids Electric Terrain boosts until grounded or suppressed',
+      () {
+        for (final c in [
+          (gravity: false, suppressed: false, power: 100),
+          (gravity: true, suppressed: false, power: 130),
+          (gravity: false, suppressed: true, power: 130),
+        ]) {
+          expect(
+            effects
+                .hit(
+                  a: effects.p(
+                    ability: 'Eelevate',
+                    flags: {PokemonFlag.abilitySuppressed: c.suppressed},
+                  ),
+                  move: effects.m(type: 'Electric', power: 100),
+                  field: effects.f(
+                    terrain: Terrain.electric,
+                    gravity: c.gravity,
+                  ),
+                )
+                .power,
+            c.power,
+          );
+        }
+      },
+    );
 
     test('かぜのりは風フラグのない飛行技を無効化しない', () {
       regressions.expectRolls(
