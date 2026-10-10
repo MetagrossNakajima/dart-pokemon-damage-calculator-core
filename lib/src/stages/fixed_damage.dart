@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-/// いかりのまえば・しぜんのいかり・カタストロフィ。
+/// いかりのまえば・カタストロフィ。最低1ダメージ。
 int halfRemainingHp(int hp) => math.max(1, hp ~/ 2);
 
 /// ガーディアン・デ・アローラ。
