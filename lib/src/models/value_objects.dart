@@ -6,6 +6,7 @@ part 'value_objects/move_id.dart';
 part 'value_objects/ability_id.dart';
 part 'value_objects/item_id.dart';
 part 'value_objects/stat_value.dart';
+part 'value_objects/max_hp.dart';
 part 'value_objects/stat_stage.dart';
 part 'value_objects/pokemon_weight.dart';
 part 'value_objects/current_hp.dart';

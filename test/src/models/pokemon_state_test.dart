@@ -84,9 +84,9 @@ void main() {
       expect(request.errors.last.path, 'damageRequest.move.power');
     });
 
-    test('大きな最大HP・現在HPを合算でも受け付ける', () {
-      final largeStats = StatsDto(
-        hp: 2000000,
+    test('最大HP999・現在HP750を合算でも受け付ける', () {
+      final boundaryStats = StatsDto(
+        hp: 999,
         atk: 100,
         def: 100,
         spa: 100,
@@ -97,17 +97,17 @@ void main() {
         PokemonState.fromDto(
           PokemonStateDto(
             profile: domain.pokemon().profile,
-            stats: largeStats,
-            currentHp: 1500000,
+            stats: boundaryStats,
+            currentHp: 750,
           ),
         ),
       );
-      expect(p.stats.hp.value, 2000000);
-      expect(p.currentHp!.value, 1500000);
+      expect(p.stats.hp.value, 999);
+      expect(p.currentHp!.value, 750);
       final request = valid(
         CombinedDamageRequest.fromDto(
           CombinedDamageRequestDto.repeatSingleHit(
-            firstHit: DamageDistribution({2000000: BigInt.one}),
+            firstHit: DamageDistribution({999: BigInt.one}),
             defender: p.toDto,
             field: BattleFieldDto(format: BattleFormat.single),
             setup: BattleSetupDto.none,
@@ -123,8 +123,8 @@ void main() {
       );
       final tooHigh = PokemonStateDto(
         profile: domain.pokemon().profile,
-        stats: largeStats,
-        currentHp: 2000001,
+        stats: boundaryStats,
+        currentHp: 1000,
       );
       expect(PokemonState.fromDto(tooHigh), isA<Invalid<PokemonState>>());
     });

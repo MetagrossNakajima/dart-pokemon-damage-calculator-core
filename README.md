@@ -2,6 +2,8 @@
 
 A pure Dart Pokémon damage calculator with no Flutter dependency. Supply actual stat values; calculations use a fixed level of 50.
 
+Maximum and current HP must be integers from 1 through 999. Current HP must not exceed maximum HP.
+
 ## Usage
 
 Add the package to your `pubspec.yaml` and run `dart pub get`.
