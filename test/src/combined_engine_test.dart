@@ -417,7 +417,7 @@ void main() {
     });
 
     test(
-      'Spikes grounding respects flying levitate balloon explicit flags and gravity',
+      'Spikes grounding respects flying levitate Eelevate balloon explicit flags and gravity',
       () {
         final setup = BattleSetupDto(
           entryHazards: EntryHazardsDto(spikesLayers: 3),
@@ -425,6 +425,7 @@ void main() {
         for (final pokemon in [
           combined.defender(types: [PokemonType.flying]),
           combined.defender(ability: AbilityId.levitate),
+          combined.defender(ability: AbilityId.eelevate),
           combined.defender(item: ItemId.airBalloon),
           combined.defender(flags: {PokemonFlag.grounded: false}),
         ]) {
@@ -432,6 +433,11 @@ void main() {
         }
         for (final pokemon in [
           combined.defender(item: ItemId.airBalloon, itemConsumed: true),
+          combined.defender(ability: AbilityId.eelevate, item: ItemId.ironBall),
+          combined.defender(
+            ability: AbilityId.eelevate,
+            flags: {PokemonFlag.abilitySuppressed: true},
+          ),
           combined.defender(types: [PokemonType.flying], item: ItemId.ironBall),
           combined.defender(
             types: [PokemonType.flying],

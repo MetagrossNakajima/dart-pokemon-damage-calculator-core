@@ -69,7 +69,7 @@ bool isGrounded(
   final explicit = pokemon.flags[PokemonFlag.grounded];
   if (explicit != null) return explicit;
   return !currentTypes(pokemon).contains(PokemonType.flying) &&
-      ability != AbilityId.levitate &&
+      !{AbilityId.levitate, AbilityId.eelevate}.contains(ability) &&
       item != ItemId.airBalloon;
 }
 

@@ -60,12 +60,15 @@ double _flyingPressFactor(
     ? typeEffectiveness(PokemonType.flying, defenderType)
     : 1;
 
-// 浮遊・ふうせん由来の無効。ひこうタイプの無効は相性表で扱う。
+// 浮遊・Eelevate・ふうせん由来の無効。ひこうタイプの無効は相性表で扱う。
 bool _groundAirborneImmunity(DamageEffectsContext context, double _) =>
     context.move.type == TeraType.ground &&
     context.move.id != MoveId.thousandArrows &&
     !context.defenderGrounded &&
-    (context.defenderAbility == AbilityId.levitate ||
+    ({
+          AbilityId.levitate,
+          AbilityId.eelevate,
+        }.contains(context.defenderAbility) ||
         context.defenderItem == ItemId.airBalloon);
 
 // もらいび・こんがりボディ
