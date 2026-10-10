@@ -1,6 +1,7 @@
 import 'models/dto.dart';
 import 'models/models.dart';
 import 'models/value_objects.dart';
+import 'rules/ability_rules.dart';
 
 bool pokemonFlag(
   PokemonState pokemon,
@@ -22,7 +23,7 @@ AbilityId? activeAbility(
   // 有効なとくせいガードによる保護は、個別の抑制や場のガスより優先する。
   if (protected) return pokemon.ability;
   if (pokemonFlag(pokemon, PokemonFlag.abilitySuppressed)) return null;
-  if (pokemon.ability != AbilityId.neutralizingGas &&
+  if (!ignoresNeutralizingGas(pokemon.ability) &&
       (field.effects.contains(FieldEffect.neutralizingGas) ||
           (opponent?.ability == AbilityId.neutralizingGas &&
               !pokemonFlag(opponent!, PokemonFlag.abilitySuppressed)))) {

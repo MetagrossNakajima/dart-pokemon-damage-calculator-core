@@ -1,5 +1,29 @@
 import '../models/value_objects.dart';
 
+// Smogon Gen 9 の ignoresNeutralizingGas に対応する抑制対象外の特性。
+final _neutralizingGasImmuneAbilities = Set<AbilityId>.unmodifiable({
+  AbilityId.asOneGlastrier,
+  AbilityId.asOneSpectrier,
+  AbilityId.battleBond,
+  AbilityId.comatose,
+  AbilityId.disguise,
+  AbilityId.gulpMissile,
+  AbilityId.iceFace,
+  AbilityId.multitype,
+  AbilityId.neutralizingGas,
+  AbilityId.powerConstruct,
+  AbilityId.rksSystem,
+  AbilityId.schooling,
+  AbilityId.shieldsDown,
+  AbilityId.stanceChange,
+  AbilityId.teraShift,
+  AbilityId.zenMode,
+  AbilityId.zerotoHero,
+});
+
+bool ignoresNeutralizingGas(AbilityId? ability) =>
+    _neutralizingGasImmuneAbilities.contains(ability);
+
 // かたやぶり系による無視を認める特性の一覧。
 final _moldBreakerIgnoredAbilities = Set<AbilityId>.unmodifiable({
   AbilityId.armorTail,
