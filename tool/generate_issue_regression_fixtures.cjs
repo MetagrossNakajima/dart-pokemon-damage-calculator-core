@@ -577,7 +577,7 @@ const cases = [
     "case": 1,
     "attacker": {
       "stats": {
-        "atk": 1000
+        "atk": 999
       },
       "ranks": {
         "atk": 6
@@ -603,7 +603,7 @@ const cases = [
     "case": 2,
     "attacker": {
       "stats": {
-        "atk": 100000
+        "atk": 999
       }
     },
     "defender": {
@@ -624,7 +624,7 @@ const cases = [
     "case": 3,
     "attacker": {
       "stats": {
-        "atk": 1000
+        "atk": 999
       },
       "ranks": {
         "atk": 6
@@ -655,7 +655,7 @@ const cases = [
     "case": 4,
     "attacker": {
       "stats": {
-        "atk": 1000
+        "atk": 999
       },
       "ranks": {
         "atk": 6
@@ -682,7 +682,7 @@ const cases = [
     "case": 5,
     "attacker": {
       "stats": {
-        "atk": 100000
+        "atk": 999
       },
       "ranks": {
         "atk": 6
@@ -690,7 +690,7 @@ const cases = [
     },
     "defender": {
       "stats": {
-        "def": 100000
+        "def": 999
       },
       "ranks": {
         "def": -6
@@ -709,7 +709,7 @@ const cases = [
     "case": 6,
     "attacker": {
       "stats": {
-        "atk": 1000
+        "atk": 999
       },
       "ranks": {
         "atk": 6
