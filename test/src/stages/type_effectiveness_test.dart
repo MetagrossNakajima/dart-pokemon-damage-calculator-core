@@ -187,7 +187,7 @@ void main() {
         calculator
             .damage(
               a: calculator.pokemon(stat: 1),
-              d: calculator.pokemon(stat: 10000, reflect: true),
+              d: calculator.pokemon(stat: 999, reflect: true),
               m: calculator.move(power: 1),
             )
             .min,

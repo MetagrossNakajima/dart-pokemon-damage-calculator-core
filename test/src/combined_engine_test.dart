@@ -25,14 +25,15 @@ CombinedDamageRequestDto repeated(
 
 void main() {
   test('combined damage stays BigInt beyond the signed 64-bit limit', () {
-    const maxHp = 9223372036854775807;
-    const firstDamage = 4611686018427387904;
+    const maxHp = 999;
+    const firstDamage = 100;
+    const secondDamage = 9223372036854775807;
     final result = combined.run(
       combined.request([
         combined.attack(
           [
             combined.distribution({firstDamage: 2}),
-            combined.distribution({maxHp: 3}),
+            combined.distribution({secondDamage: 3}),
             combined.distribution({100: 5}),
           ],
           counts: {1: 7, 2: 11, 3: 13},
@@ -40,7 +41,7 @@ void main() {
         ),
       ], pokemon: combined.defender(hp: maxHp)),
     );
-    final sum = BigInt.parse('13835058055282163711');
+    final sum = BigInt.parse('9223372036854775907');
     expect(result.attackDamage.weights, {
       BigInt.from(firstDamage): BigInt.from(210),
       sum: BigInt.from(720),
@@ -57,8 +58,8 @@ void main() {
     expect(result.ko.guaranteedHits, 1);
   });
 
-  test('Sitrus compares huge HP without overflow and caps berry healing', () {
-    const maxHp = 9223372036854775807;
+  test('Sitrus handles maximum HP999 and caps berry healing', () {
+    const maxHp = 999;
     final full = combined.run(
       combined.request(
         [

@@ -24,7 +24,7 @@ final class _Checks {
 }
 
 Stats Function() _checkStats(_Checks c, StatsDto input, String path) {
-  final hp = c.take(StatValue.create(input.hp), '$path.hp');
+  final hp = c.take(MaxHp.create(input.hp), '$path.hp');
   final atk = c.take(StatValue.create(input.atk), '$path.atk');
   final def = c.take(StatValue.create(input.def), '$path.def');
   final spa = c.take(StatValue.create(input.spa), '$path.spa');

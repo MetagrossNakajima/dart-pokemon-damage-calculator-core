@@ -5,8 +5,8 @@ void main() {
   values.cases<CurrentHp, int>(
     'CurrentHp',
     CurrentHp.create,
-    [1, 10000, 10001, 1000000],
-    [0, -1],
+    [1, 998, 999],
+    [-1, 0, 1000, 9223372036854775807],
     ValidationCode.outOfRange,
   );
 }
