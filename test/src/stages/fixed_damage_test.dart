@@ -42,6 +42,77 @@ void main() {
       });
     }
 
+    test('NaturesMadness floors remaining HP without a minimum', () {
+      for (final hp in [1, 2, 3, 100, 101]) {
+        final result = special_damage.damage(
+          special_damage.fixedMove('NaturesMadness', type: 'Fairy'),
+          defender: special_damage.pokemon(
+            currentHp: hp,
+            stats: const StatsDto(
+              hp: 101,
+              atk: 100,
+              def: 100,
+              spa: 100,
+              spd: 100,
+              spe: 100,
+            ),
+          ),
+        );
+        expect(result.hits.single.rolls, [hp ~/ 2]);
+        expect(result.distribution.weights, {hp ~/ 2: BigInt.one});
+        expect(result.hits.single.kind, DamageKind.fixed);
+      }
+    });
+
+    test('SuperFang and Ruination retain one damage at one HP', () {
+      for (final id in ['SuperFang', 'Ruination']) {
+        expect(
+          special_damage
+              .damage(
+                special_damage.fixedMove(id),
+                defender: special_damage.pokemon(currentHp: 1),
+              )
+              .distribution
+              .weights,
+          {1: BigInt.one},
+        );
+      }
+    });
+
+    test('NaturesMadness preserves resistance and ability immunity rules', () {
+      for (final c in [
+        (types: ['Steel'], ability: null, damage: 50),
+        (types: ['Normal'], ability: 'WonderGuard', damage: 0),
+      ]) {
+        expect(
+          special_damage
+              .damage(
+                special_damage.fixedMove('NaturesMadness', type: 'Fairy'),
+                defender: special_damage.pokemon(
+                  types: c.types,
+                  ability: c.ability,
+                ),
+              )
+              .distribution
+              .weights,
+          {c.damage: BigInt.one},
+        );
+      }
+      expect(
+        special_damage
+            .damage(
+              special_damage.fixedMove('Ruination', type: 'Dark'),
+              defender: special_damage.pokemon(
+                ability: 'WonderGuard',
+                currentHp: 1,
+              ),
+            )
+            .distribution
+            .weights,
+        {0: BigInt.one},
+      );
+    });
+
     test('fractional moves preserve their individual minimum damage', () {
       final oneHp = special_damage.pokemon(currentHp: 1);
       expect(

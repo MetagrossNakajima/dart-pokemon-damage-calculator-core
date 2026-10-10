@@ -115,9 +115,8 @@ HitResult _specialHit(
     immune = true;
   }
   final damage = switch (move.id) {
-    MoveId.superFang ||
-    MoveId.naturesMadness ||
-    MoveId.ruination => halfRemainingHp(hp),
+    MoveId.superFang || MoveId.ruination => halfRemainingHp(hp),
+    MoveId.naturesMadness => hp ~/ 2,
     MoveId.guardianofAlola => threeQuarterRemainingHp(hp),
     MoveId.finalGambit => attackerHp,
     MoveId.endeavor => endeavorDamage(hp, attackerHp),

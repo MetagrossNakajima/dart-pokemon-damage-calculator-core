@@ -225,3 +225,5 @@ List available tasks with `mise tasks`. Each task uses the Dart version specifie
 ## Additional notes
 
 Priority-move blocking is outside the scope of this package, including effects from abilities such as Queenly Majesty, Armor Tail, and Dazzling, as well as Psychic Terrain. The client must determine whether a priority move can hit before requesting a damage calculation. Psychic Terrain's damage modifiers are supported.
+
+Nature's Madness deals `currentHp ~/ 2` fixed damage (0 at 1 HP). Super Fang and Ruination use the same halving with a minimum of 1 damage. Type and ability immunities still apply.
