@@ -37,8 +37,8 @@ description = "ID定義が最新か検証"
 run = "dart run tool/generate_ids.dart --check"
 
 [tasks.example]
-description = "単発技と連続技の実行例を確認"
-run = ["dart run example/main.dart", "dart run example/multi_hit.dart"]
+description = "単発技・連続技・特性発動の実行例を確認"
+run = ["dart run example/main.dart", "dart run example/multi_hit.dart", "dart run example/ability_activation.dart"]
 
 [tasks.benchmark]
 description = "ダメージ計算のベンチマークを実行"

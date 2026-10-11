@@ -58,7 +58,7 @@ void main() {
       expect(state.timesHit, 3);
       expect(state.flags, {
         PokemonFlag.grounded: true,
-        PokemonFlag.flashFire: false,
+        PokemonFlag.charge: false,
       });
       expect(state.id, pokemonId('test'));
       expect(state.types, [PokemonType.normal, PokemonType.water]);

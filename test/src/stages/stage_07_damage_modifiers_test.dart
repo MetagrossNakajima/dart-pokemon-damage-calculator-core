@@ -17,7 +17,7 @@ import '../../support/effects_fixtures.dart' as effects;
 void main() {
   {
     test(
-      'full HP shields distinguish bypassable and unbypassable abilities',
+      'selected HP shields distinguish bypassable and unbypassable abilities',
       () {
         final a = calculator.pokemon(ability: 'MoldBreaker');
         expect(
@@ -44,7 +44,7 @@ void main() {
                 d: calculator.pokemon(ability: 'Multiscale', fullHp: false),
               )
               .max,
-          28,
+          14,
         );
       },
     );

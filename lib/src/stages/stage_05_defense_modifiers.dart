@@ -36,13 +36,7 @@ RuleModifier? _paradoxDefenseModifier(
 ) => modifierWhen(
   context.defenderAbility?.value ?? 'Paradox',
   5324,
-  isParadoxBoostedStat(
-    context,
-    context.defender,
-    context.defenderAbility,
-    context.defenderItem,
-    stat,
-  ),
+  isParadoxBoostedStat(context.defender, context.defenderAbility, stat),
 );
 
 // フラワーギフト
@@ -51,7 +45,6 @@ RuleModifier? _flowerGiftDefenseModifier(DamageEffectsContext context) =>
       AbilityId.flowerGift.value,
       6144,
       !context.physicalDefense &&
-          context.weather == Weather.sunlight &&
           (context.defenderAbility == AbilityId.flowerGift ||
               context.field(FieldEffect.defenderFlowerGift)),
     );
@@ -62,8 +55,7 @@ RuleModifier? _marvelScaleDefenseModifier(DamageEffectsContext context) =>
       AbilityId.marvelScale.value,
       6144,
       context.defenderAbility == AbilityId.marvelScale &&
-          context.physicalDefense &&
-          context.defender.status != null,
+          context.physicalDefense,
     );
 
 // くさのけがわ
@@ -71,9 +63,7 @@ RuleModifier? _grassPeltDefenseModifier(DamageEffectsContext context) =>
     modifierWhen(
       AbilityId.grassPelt.value,
       6144,
-      context.defenderAbility == AbilityId.grassPelt &&
-          context.physicalDefense &&
-          context.terrain == Terrain.grass,
+      context.defenderAbility == AbilityId.grassPelt && context.physicalDefense,
     );
 
 // ファーコート

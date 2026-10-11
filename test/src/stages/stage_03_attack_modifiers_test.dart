@@ -37,7 +37,7 @@ void main() {
             final physical = category == Category.physical;
             final expected = physical && ['HugePower', 'PurePower'].contains(a)
                 ? 300
-                : physical && a == 'Guts' && status != null
+                : physical && a == 'Guts'
                 ? 225
                 : 150;
             expect(r.hits.single.attack, expected);
@@ -132,7 +132,7 @@ void main() {
       (
         'FlashFire',
         150,
-        effects.p(ability: 'FlashFire', flags: {PokemonFlag.flashFire: true}),
+        effects.p(ability: 'FlashFire'),
         effects.p(),
         effects.m(type: 'Fire'),
         effects.f(),
@@ -148,7 +148,7 @@ void main() {
       (
         'Plus',
         150,
-        effects.p(ability: 'Plus', flags: {PokemonFlag.plusMinusAlly: true}),
+        effects.p(ability: 'Plus'),
         effects.p(),
         effects.m(category: Category.special),
         effects.f(),
@@ -156,7 +156,7 @@ void main() {
       (
         'Minus',
         150,
-        effects.p(ability: 'Minus', flags: {PokemonFlag.plusMinusAlly: true}),
+        effects.p(ability: 'Minus'),
         effects.p(),
         effects.m(category: Category.special),
         effects.f(),
@@ -213,7 +213,7 @@ void main() {
         'Stakeout',
         200,
         effects.p(ability: 'Stakeout'),
-        effects.p(flags: {PokemonFlag.switchedIn: true}),
+        effects.p(),
         effects.m(),
         effects.f(),
       ),
@@ -242,64 +242,6 @@ void main() {
         );
       });
     }
-
-    test(
-      'conditional abilities are not unconditionally enabled by selection',
-      () {
-        expect(
-          effects.hit(a: effects.p(ability: 'Defeatist', hp: 101)).attack,
-          100,
-        );
-        expect(
-          effects
-              .hit(
-                a: effects.p(ability: 'Blaze', hp: 67),
-                move: effects.m(type: 'Fire'),
-              )
-              .attack,
-          100,
-        );
-        expect(
-          effects
-              .hit(
-                a: effects.p(
-                  ability: 'SlowStart',
-                  flags: {PokemonFlag.slowStart: false},
-                ),
-              )
-              .attack,
-          100,
-        );
-        expect(
-          effects
-              .hit(
-                a: effects.p(ability: 'FlashFire'),
-                move: effects.m(type: 'Fire'),
-              )
-              .attack,
-          100,
-        );
-        expect(
-          effects
-              .hit(
-                a: effects.p(ability: 'SolarPower'),
-                move: effects.m(category: Category.special),
-              )
-              .attack,
-          100,
-        );
-        expect(
-          effects
-              .hit(
-                a: effects.p(ability: 'Plus'),
-                move: effects.m(category: Category.special),
-              )
-              .attack,
-          100,
-        );
-        expect(effects.hit(a: effects.p(ability: 'Stakeout')).attack, 100);
-      },
-    );
 
     for (final c in [
       ('ThickFat', 'Ice'),

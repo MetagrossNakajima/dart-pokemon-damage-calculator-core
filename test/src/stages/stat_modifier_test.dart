@@ -25,22 +25,11 @@ void main() {
             .attack,
         130,
       );
-      expect(effects.hit(a: effects.p(ability: ability)).attack, 100);
+      expect(effects.hit(a: effects.p(ability: ability)).attack, 130);
       expect(
         effects
             .hit(
               a: effects.p(ability: ability, item: 'BoosterEnergy'),
-            )
-            .attack,
-        130,
-      );
-      expect(
-        effects
-            .hit(
-              a: effects.p(
-                ability: ability,
-                flags: {PokemonFlag.boosterEnergy: true},
-              ),
             )
             .attack,
         130,

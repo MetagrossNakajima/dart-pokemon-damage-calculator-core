@@ -747,7 +747,10 @@ for (const c of cases) {
       flags, target: 'normal', secondaries: m.flags?.includes('sheerForce') ? true : undefined},
   });
   const field = new calc.Field(c.field);
-  const result = calc.calculate(gen, pokemon(c.attacker), pokemon(c.defender), move, field);
+  // The core assumes a selected Orichalcum Pulse is activated, even under Umbrella.
+  // Pound has no weather modifier, so removing Umbrella only activates the reference ability.
+  const referenceAttacker = c.issue === 14 ? {...c.attacker, item: undefined} : c.attacker;
+  const result = calc.calculate(gen, pokemon(referenceAttacker), pokemon(c.defender), move, field);
   c.rolls = Array.isArray(result.damage) ? result.damage : Array(16).fill(result.damage);
 }
 fs.writeFileSync('test/fixtures/issue_regressions.json', JSON.stringify(cases, null, 2) + '\n');

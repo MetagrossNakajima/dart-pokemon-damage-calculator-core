@@ -204,7 +204,7 @@ mise run check
 ```
 
 `check` installs dependencies, checks formatting and generated IDs, runs static analysis,
-collects and verifies 100% line and VM branch coverage, then runs the single-hit and multi-hit examples in sequence.
+collects and verifies 100% line and VM branch coverage, then runs the single-hit, multi-hit, and ability activation examples in sequence.
 Coverage collection also runs the full test suite.
 
 Individual commands are listed below.
@@ -230,3 +230,21 @@ List available tasks with `mise tasks`. Each task uses the Dart version specifie
 Priority-move blocking is outside the scope of this package, including effects from abilities such as Queenly Majesty, Armor Tail, and Dazzling, as well as Psychic Terrain. The client must determine whether a priority move can hit before requesting a damage calculation. Psychic Terrain's damage modifiers are supported.
 
 Nature's Madness deals `currentHp ~/ 2` fixed damage (0 at 1 HP). Super Fang and Ruination use the same halving with a minimum of 1 damage. Type and ability immunities still apply.
+
+### Ability activation contract (breaking change)
+
+`PokemonStateDto.ability` selects an already activated ability for both attacker and defender. Send the ability when the UI toggle is ON; omit it (or send `null`) when OFF. No activation flag or automatic activation mode is required.
+
+HP thresholds, status, switching history, move order, weather, terrain, allies, and Booster Energy are not prerequisites for the selected ability's damage modifier. Move type, physical/special category, contact, effectiveness, and other effect applicability rules still apply. Mold Breaker, Neutralizing Gas, explicit ability suppression, and Ability Shield retain their existing behavior.
+
+The core does not change HP, status, weather, terrain, items, or move order to activate an ability. Other move and item effects use the supplied state. For example, Blaze boosts Fire attacks at full HP, while Eruption still uses the actual supplied HP. Solar Power boosts special attacks without adding sunlight's Fire/Water modifiers. Ally Flower Gift field effects likewise assume activation without requiring sunlight.
+
+Multiscale and Shadow Shield still apply only to the first hit of a multi-hit move, even at partial HP. Tera Shell retains its existing hit behavior and type immunities, without requiring full HP. Combined damage uses the client-supplied fixed distributions; the client chooses whether abilities are included in first-attack and subsequent-attack distributions.
+
+Keep `boostedStat`, gender, and `faintedAllies` to select the modifier's content. If `boostedStat` is omitted, Protosynthesis and Quark Drive select the highest ranked stat, breaking ties in Attack, Defense, Special Attack, Special Defense, Speed order.
+
+Migration: remove `PokemonFlag.flashFire`, `slowStart`, `plusMinusAlly`, `boosterEnergy`, and `switchedIn`; these flags have been removed. To disable their corresponding ability, omit `ability`. Keep `movesFirst` for move-specific effects such as Bolt Beak; Analytic no longer uses it. The Booster Energy item remains accepted, but is not required to activate a selected paradox ability.
+
+This activation assumption is an intentional exception to Smogon parity. Modifier values, ordering, rounding, and individual-hit random rolls continue to follow Smogon with the reference ability activated.
+
+See [`example/ability_activation.dart`](example/ability_activation.dart) for ON/OFF calculations at full HP.

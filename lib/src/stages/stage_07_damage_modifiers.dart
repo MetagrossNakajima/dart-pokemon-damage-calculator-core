@@ -59,8 +59,7 @@ RuleModifier? _fullHpDamageModifier(DamageEffectsContext context) =>
     modifierWhen(
       context.defenderAbility?.value ?? 'FullHp',
       2048,
-      context.full(context.defender) &&
-          context.hitIndex == 0 &&
+      context.hitIndex == 0 &&
           {
             AbilityId.multiscale,
             AbilityId.shadowShield,

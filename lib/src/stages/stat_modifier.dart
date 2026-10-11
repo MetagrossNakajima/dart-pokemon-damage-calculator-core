@@ -1,26 +1,10 @@
-import '../battle_effects.dart';
 import '../models/dto.dart';
 import '../models/models.dart';
 import '../models/value_objects.dart';
-import 'calculation_context.dart';
 import 'common_modifier.dart';
 
-bool isParadoxBoostedStat(
-  DamageEffectsContext context,
-  PokemonState pokemon,
-  AbilityId? ability,
-  ItemId? item,
-  Stat stat,
-) {
+bool isParadoxBoostedStat(PokemonState pokemon, AbilityId? ability, Stat stat) {
   if (!{AbilityId.quarkDrive, AbilityId.protosynthesis}.contains(ability)) {
-    return false;
-  }
-  if (!(item == ItemId.boosterEnergy ||
-      pokemonFlag(pokemon, PokemonFlag.boosterEnergy) ||
-      (ability == AbilityId.quarkDrive &&
-          context.terrain == Terrain.electric) ||
-      (ability == AbilityId.protosynthesis &&
-          context.weather == Weather.sunlight))) {
     return false;
   }
   var selected = pokemon.boostedStat;

@@ -23,6 +23,11 @@ final class PokemonState extends DomainValue {
   final PokemonProfile profile;
   final Stats stats;
   final StatStages stages;
+
+  /// 発動済みとして計算する特性。未指定の場合は特性の効果なし。
+  ///
+  /// HP・状態異常・天候などの発動条件は判定せず、技への適用条件と
+  /// かたやぶりなどによる無効化は適用する。入力された状態は変更しない。
   final AbilityId? ability;
   final ItemId? item;
   final CurrentHp? currentHp;

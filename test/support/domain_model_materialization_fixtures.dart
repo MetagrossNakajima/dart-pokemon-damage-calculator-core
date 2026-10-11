@@ -27,7 +27,7 @@ PokemonStateDto makePokemon({bool detailed = true}) => PokemonStateDto(
   boostedStat: detailed ? Stat.spa : null,
   faintedAllies: 100,
   timesHit: 100,
-  flags: {PokemonFlag.grounded: true, PokemonFlag.flashFire: false},
+  flags: {PokemonFlag.grounded: true, PokemonFlag.charge: false},
 );
 
 MoveDto move() => MoveDto(
