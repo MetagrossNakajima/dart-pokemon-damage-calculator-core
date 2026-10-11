@@ -30,7 +30,7 @@ PokemonStateDto pokemon({bool detailed = false}) => PokemonStateDto(
   faintedAllies: 2,
   timesHit: 3,
   sideConditions: SideConditions(reflect: detailed, lightScreen: detailed),
-  flags: {PokemonFlag.grounded: true, PokemonFlag.flashFire: false},
+  flags: {PokemonFlag.grounded: true, PokemonFlag.charge: false},
 );
 
 MoveDto move() => MoveDto(

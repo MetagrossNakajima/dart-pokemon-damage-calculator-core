@@ -141,8 +141,6 @@ final class DamageEffectsContext {
   int hp(PokemonState pokemon) =>
       pokemon.currentHp?.value ?? pokemon.stats.hp.value;
 
-  /// [pokemon]のHPが満タンかを調べる。
-  bool full(PokemonState pokemon) => hp(pokemon) == pokemon.stats.hp.value;
   AbilityId? _defenderAbility() {
     // 有効な特性のうち、かたやぶりなどで無視できるものを除く。
     // とくせいガードがあっても、すでに無効な特性を有効にはしない。

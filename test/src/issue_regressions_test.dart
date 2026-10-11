@@ -117,11 +117,10 @@ void main() {
   });
 
   test(
-    'Tera Shell requires full HP and an effective ability and preserves immunity',
+    'selected Tera Shell requires an effective ability and preserves immunity',
     () {
       final move = effects.m(type: 'Fire');
       for (final defender in [
-        effects.p(ability: 'TeraShell', hp: 199),
         effects.p(
           ability: 'TeraShell',
           flags: {PokemonFlag.abilitySuppressed: true},

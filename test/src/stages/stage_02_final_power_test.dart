@@ -142,24 +142,21 @@ void main() {
       });
     }
 
-    test(
-      'full HP power leaves Multiscale dependent on supplied current HP',
-      () {
-        final full = fixed_hit.damage(
-          MoveId.crushGrip,
-          ability: AbilityId.multiscale,
-        );
-        final partial = fixed_hit.damage(
-          MoveId.crushGrip,
-          hp: 100,
-          ability: AbilityId.multiscale,
-        );
-        expect(full.hits.single.power, 120);
-        expect(partial.hits.single.power, 120);
-        expect(full.max, 40);
-        expect(partial.max, 81);
-      },
-    );
+    test('fixed full HP power and selected Multiscale ignore current HP', () {
+      final full = fixed_hit.damage(
+        MoveId.crushGrip,
+        ability: AbilityId.multiscale,
+      );
+      final partial = fixed_hit.damage(
+        MoveId.crushGrip,
+        hp: 100,
+        ability: AbilityId.multiscale,
+      );
+      expect(full.hits.single.power, 120);
+      expect(partial.hits.single.power, 120);
+      expect(full.max, 40);
+      expect(partial.max, 40);
+    });
   }
   {
     test('Normalize lets a Normal Gem be consumed before Acrobatics', () {

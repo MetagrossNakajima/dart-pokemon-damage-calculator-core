@@ -1,4 +1,3 @@
-import '../battle_effects.dart';
 import '../models/dto.dart';
 import '../models/value_objects.dart';
 import 'calculation_context.dart';
@@ -10,9 +9,7 @@ RuleModifier? _slowStartAttackModifier(DamageEffectsContext context) =>
     modifierWhen(
       AbilityId.slowStart.value,
       2048,
-      context.attackerAbility == AbilityId.slowStart &&
-          context.physical &&
-          pokemonFlag(context.attacker, PokemonFlag.slowStart, true),
+      context.attackerAbility == AbilityId.slowStart && context.physical,
     );
 
 // よわき
@@ -20,9 +17,7 @@ RuleModifier? _defeatistAttackModifier(DamageEffectsContext context) =>
     modifierWhen(
       AbilityId.defeatist.value,
       2048,
-      context.attackerAbility == AbilityId.defeatist &&
-          context.hp(context.attacker) * 2 <=
-              context.attacker.stats[Stat.hp].value,
+      context.attackerAbility == AbilityId.defeatist,
     );
 
 // わざわいのうつわ
@@ -54,13 +49,7 @@ RuleModifier? _paradoxAttackModifier(DamageEffectsContext context, Stat stat) =>
     modifierWhen(
       context.attackerAbility?.value ?? 'Paradox',
       5325,
-      isParadoxBoostedStat(
-        context,
-        context.attacker,
-        context.attackerAbility,
-        context.attackerItem,
-        stat,
-      ),
+      isParadoxBoostedStat(context.attacker, context.attackerAbility, stat),
     );
 
 // トランジスタ
@@ -77,9 +66,7 @@ RuleModifier? _hadronEngineAttackModifier(DamageEffectsContext context) =>
     modifierWhen(
       AbilityId.hadronEngine.value,
       5461,
-      context.attackerAbility == AbilityId.hadronEngine &&
-          context.terrain == Terrain.electric &&
-          !context.physical,
+      context.attackerAbility == AbilityId.hadronEngine && !context.physical,
     );
 
 // ひひいろのこどう
@@ -87,10 +74,7 @@ RuleModifier? _orichalcumPulseAttackModifier(DamageEffectsContext context) =>
     modifierWhen(
       AbilityId.orichalcumPulse.value,
       5461,
-      context.attackerAbility == AbilityId.orichalcumPulse &&
-          context.weather == Weather.sunlight &&
-          context.attackerItem != ItemId.utilityUmbrella &&
-          context.physical,
+      context.attackerAbility == AbilityId.orichalcumPulse && context.physical,
     );
 
 // フラワーギフト
@@ -99,7 +83,6 @@ RuleModifier? _flowerGiftAttackModifier(DamageEffectsContext context) =>
       AbilityId.flowerGift.value,
       6144,
       context.physical &&
-          context.weather == Weather.sunlight &&
           (context.attackerAbility == AbilityId.flowerGift ||
               context.field(FieldEffect.attackerFlowerGift)),
     );
@@ -108,9 +91,7 @@ RuleModifier? _flowerGiftAttackModifier(DamageEffectsContext context) =>
 RuleModifier? _gutsAttackModifier(DamageEffectsContext context) => modifierWhen(
   AbilityId.guts.value,
   6144,
-  context.attackerAbility == AbilityId.guts &&
-      context.physical &&
-      context.attacker.status != null,
+  context.attackerAbility == AbilityId.guts && context.physical,
 );
 
 // しんりょく・もうか・げきりゅう・むしのしらせ
@@ -124,9 +105,7 @@ RuleModifier? _lowHpAbilityAttackModifier(DamageEffectsContext context) {
   return modifierWhen(
     context.attackerAbility?.value ?? 'LowHpAbility',
     6144,
-    boostedType == context.move.type &&
-        context.hp(context.attacker) * 3 <=
-            context.attacker.stats[Stat.hp].value,
+    boostedType == context.move.type,
   );
 }
 
@@ -136,8 +115,7 @@ RuleModifier? _flashFireAttackModifier(DamageEffectsContext context) =>
       AbilityId.flashFire.value,
       6144,
       context.attackerAbility == AbilityId.flashFire &&
-          context.move.type == TeraType.fire &&
-          pokemonFlag(context.attacker, PokemonFlag.flashFire),
+          context.move.type == TeraType.fire,
     );
 
 // サンパワー
@@ -145,9 +123,7 @@ RuleModifier? _solarPowerAttackModifier(DamageEffectsContext context) =>
     modifierWhen(
       AbilityId.solarPower.value,
       6144,
-      context.attackerAbility == AbilityId.solarPower &&
-          !context.physical &&
-          context.weather == Weather.sunlight,
+      context.attackerAbility == AbilityId.solarPower && !context.physical,
     );
 
 // プラス・マイナス
@@ -156,8 +132,7 @@ RuleModifier? _plusMinusAttackModifier(DamageEffectsContext context) =>
       context.attackerAbility?.value ?? 'PlusMinus',
       6144,
       {AbilityId.plus, AbilityId.minus}.contains(context.attackerAbility) &&
-          !context.physical &&
-          pokemonFlag(context.attacker, PokemonFlag.plusMinusAlly),
+          !context.physical,
     );
 
 // タイプ強化特性
@@ -210,8 +185,7 @@ RuleModifier? _stakeoutAttackModifier(DamageEffectsContext context) =>
     modifierWhen(
       AbilityId.stakeout.value,
       8192,
-      context.attackerAbility == AbilityId.stakeout &&
-          pokemonFlag(context.defender, PokemonFlag.switchedIn),
+      context.attackerAbility == AbilityId.stakeout,
     );
 
 // あついしぼう

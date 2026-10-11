@@ -128,7 +128,7 @@ void main() {
     }
   });
 
-  test('999 HP keeps full-HP power and ability conditions correct', () {
+  test('999 HP keeps move power while selected abilities are activated', () {
     for (final id in [
       MoveId.eruption,
       MoveId.waterSpout,
@@ -141,25 +141,25 @@ void main() {
         pokemon(currentHp: 999, ability: AbilityId.overgrow),
         move(MoveId.pound, type: PokemonType.grass),
       ).attack,
-      100,
+      150,
     );
     expect(
       hit(
         pokemon(currentHp: 999, ability: AbilityId.defeatist),
         move(MoveId.pound),
       ).attack,
-      100,
+      50,
     );
   });
 
-  test('999 HP uses exact low-HP ability thresholds', () {
+  test('999 HP ability activation ignores former HP thresholds', () {
     for (final hp in [333, 334]) {
       expect(
         hit(
           pokemon(currentHp: hp, ability: AbilityId.overgrow),
           move(MoveId.pound, type: PokemonType.grass),
         ).attack,
-        hp == 333 ? 150 : 100,
+        150,
       );
     }
     for (final hp in [499, 500]) {
@@ -168,7 +168,7 @@ void main() {
           pokemon(currentHp: hp, ability: AbilityId.defeatist),
           move(MoveId.pound),
         ).attack,
-        hp == 499 ? 50 : 100,
+        50,
       );
     }
   });

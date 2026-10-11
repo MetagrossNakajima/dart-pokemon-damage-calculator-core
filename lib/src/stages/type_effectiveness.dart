@@ -156,9 +156,7 @@ double calculateTypeEffectiveness(DamageEffectsContext context) {
 
 double calculateEffectiveness(DamageEffectsContext context) {
   var result = calculateTypeEffectiveness(context);
-  if (result != 0 &&
-      context.defenderAbility == AbilityId.teraShell &&
-      context.full(context.defender)) {
+  if (result != 0 && context.defenderAbility == AbilityId.teraShell) {
     result = 0.5;
   }
   // タイプごとの例外を反映してから特性無効を判定し、ふしぎなまもりは合成相性を見る。

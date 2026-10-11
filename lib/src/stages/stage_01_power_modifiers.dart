@@ -123,7 +123,6 @@ RuleModifier? _sandForcePowerModifier(DamageEffectsContext context) =>
       AbilityId.sandForce.value,
       5325,
       context.attackerAbility == AbilityId.sandForce &&
-          context.weather == Weather.sandstorm &&
           {
             TeraType.ground,
             TeraType.rock,
@@ -136,8 +135,7 @@ RuleModifier? _analyticPowerModifier(DamageEffectsContext context) =>
     modifierWhen(
       AbilityId.analytic.value,
       5325,
-      context.attackerAbility == AbilityId.analytic &&
-          !pokemonFlag(context.attacker, PokemonFlag.movesFirst),
+      context.attackerAbility == AbilityId.analytic,
     );
 
 // かたいツメ
@@ -189,9 +187,7 @@ RuleModifier? _flareBoostPowerModifier(DamageEffectsContext context) =>
     modifierWhen(
       AbilityId.flareBoost.value,
       6144,
-      context.attackerAbility == AbilityId.flareBoost &&
-          !context.physical &&
-          context.attacker.status == Status.burn,
+      context.attackerAbility == AbilityId.flareBoost && !context.physical,
     );
 
 // どくぼうそう
@@ -199,9 +195,7 @@ RuleModifier? _toxicBoostPowerModifier(DamageEffectsContext context) =>
     modifierWhen(
       AbilityId.toxicBoost.value,
       6144,
-      context.attackerAbility == AbilityId.toxicBoost &&
-          context.physical &&
-          {Status.poison, Status.toxic}.contains(context.attacker.status),
+      context.attackerAbility == AbilityId.toxicBoost && context.physical,
     );
 
 // がんじょうあご
